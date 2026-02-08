@@ -7,53 +7,93 @@
   <meta name="robots" content="noindex" />
 
   <style>
-    /* === RESET === */
-    html {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+    /* =====================================================
+       GLOBAL RESET
+    ===================================================== */
+    * {
+      box-sizing: border-box;
     }
 
-    body {
+    html, body {
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow: hidden; /* 🔴 KRİTİK SATIR */
-      position: relative;
+      overflow: hidden; /* widget iframe taşmasını ENGELLER */
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    /* === BACKGROUND === */
+    /* =====================================================
+       SAFE VIEWPORT (gerçek viewport)
+    ===================================================== */
+    :root {
+      --safe-vh: 100dvh;
+      --bottom-safe-space: 90px; /* dock + taskbar toleransı */
+    }
+
+    /* =====================================================
+       BACKGROUND LAYER
+    ===================================================== */
     .bg {
       position: fixed;
       inset: 0;
-      background: url("./background.png") no-repeat center center;
+      min-height: var(--safe-vh);
+      background-image: url("./background.png");
+      background-repeat: no-repeat;
       background-size: cover;
+      background-position: center 35%; /* AKILLI KIRPMA */
       z-index: 0;
     }
 
-    /* === OVERLAY === */
+    /* =====================================================
+       OVERLAY
+    ===================================================== */
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.1);
+      background: rgba(0, 0, 0, 0.1);
       pointer-events: none;
       z-index: 1;
     }
 
-    /* === WIDGET === */
+    /* =====================================================
+       CONTENT SAFE-AREA (OS BAR DENGESİ)
+    ===================================================== */
+    body::after {
+      content: "";
+      display: block;
+      height: var(--bottom-safe-space);
+    }
+
+    /* =====================================================
+       WIDGET
+    ===================================================== */
     #widget-root {
       position: fixed;
       right: 20px;
       bottom: 20px;
       z-index: 9999;
+      max-width: calc(100vw - 40px);
     }
 
-    /* iPhone safe-area */
+    /* iOS notch & safe-area */
     @supports (padding: env(safe-area-inset-bottom)) {
       #widget-root {
         bottom: calc(20px + env(safe-area-inset-bottom));
         right: calc(20px + env(safe-area-inset-right));
+      }
+    }
+
+    /* =====================================================
+       MOBILE OPTIMIZATION
+    ===================================================== */
+    @media (max-width: 768px) {
+      :root {
+        --bottom-safe-space: 130px;
+      }
+
+      .bg {
+        background-position: center top;
       }
     }
   </style>
@@ -61,10 +101,16 @@
 
 <body>
 
+  <!-- Background -->
   <div class="bg"></div>
+
+  <!-- Overlay -->
   <div class="overlay"></div>
+
+  <!-- Widget -->
   <div id="widget-root"></div>
 
+  <!-- Click2Connect Widget -->
   <script
     src="//thy.alo-tech.com/click2connects/click2connect.js?widget_key=ahRzfm11c3RlcmktaGl6bWV0bGVyaXIhCxIUQ2xpY2syQ29ubmVjdFBhY2thZ2UYgIDaqb6X5AgMogEQdGh5LmFsby10ZWNoLmNvbQ">
   </script>
