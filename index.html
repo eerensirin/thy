@@ -7,45 +7,49 @@
   <meta name="robots" content="noindex" />
 
   <style>
-    /* RESET */
-    html, body {
+    /* === RESET === */
+    html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    body {
       width: 100%;
       height: 100%;
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
+      overflow: hidden; /* 🔴 KRİTİK SATIR */
+      position: relative;
     }
 
-    /* ARKA PLAN KATMANI */
+    /* === BACKGROUND === */
     .bg {
       position: fixed;
       inset: 0;
-      background-image: url("./background.png");
-      background-repeat: no-repeat;
-      background-position: center center;
+      background: url("./background.png") no-repeat center center;
       background-size: cover;
       z-index: 0;
     }
 
-    /* KARARTMA */
+    /* === OVERLAY === */
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.1);
+      background: rgba(0,0,0,0.1);
       pointer-events: none;
       z-index: 1;
     }
 
-    /* WIDGET */
+    /* === WIDGET === */
     #widget-root {
       position: fixed;
       right: 20px;
       bottom: 20px;
-      z-index: 10000;
-      max-width: calc(100vw - 40px);
+      z-index: 9999;
     }
 
-    /* iPhone notch / safe-area desteği */
+    /* iPhone safe-area */
     @supports (padding: env(safe-area-inset-bottom)) {
       #widget-root {
         bottom: calc(20px + env(safe-area-inset-bottom));
@@ -57,18 +61,11 @@
 
 <body>
 
-  <!-- Arka plan -->
   <div class="bg"></div>
-
-  <!-- Overlay -->
   <div class="overlay"></div>
-
-  <!-- Widget container -->
   <div id="widget-root"></div>
 
-  <!-- Click2Connect Widget -->
   <script
-    type="text/javascript"
     src="//thy.alo-tech.com/click2connects/click2connect.js?widget_key=ahRzfm11c3RlcmktaGl6bWV0bGVyaXIhCxIUQ2xpY2syQ29ubmVjdFBhY2thZ2UYgIDaqb6X5AgMogEQdGh5LmFsby10ZWNoLmNvbQ">
   </script>
 
