@@ -7,18 +7,22 @@
   <meta name="robots" content="noindex" />
   <style>
     html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      overflow: hidden;
-    }
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* sadece yatay taşmayı engelle */
+}
 
-    /* Arka plan tam ekran, çok az kesme ile */
-    body {
-      background: #000 url("./background.png") no-repeat center center fixed;
-      background-size: cover;
-      position: relative;
-    }
+body {
+  background-image: url("./background.png");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-attachment: scroll; /* fixed KALDIRILDI */
+  position: relative;
+}
+
 
     /* Hafif karartma efekti */
     .overlay {
